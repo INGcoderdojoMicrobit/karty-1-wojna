@@ -5,10 +5,12 @@ enum SpriteKindLegacy {
     Enemy
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    los_karta1 = randint(0, 51)
+    los_karta1 = kupka1.shift()
     karta1.say(los_karta1 % 13 + 1)
-    los_karta2 = randint(0, 51)
+    karta1.say(kupka1.length)
+    los_karta2 = kupka2.shift()
     karta2.say(los_karta2 % 13 + 1)
+    karta2.say(kupka2.length)
     karta1.setImage(lista_kart_obrazy[los_karta1])
     karta2.setImage(lista_kart_obrazy[los_karta2])
     if (los_karta1 % 13 + 1 < los_karta2 % 13 + 1) {
@@ -31,6 +33,8 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             . . . . . e e e e e e . . . . . 
             . . . . . . . . . . . . . . . . 
             `)
+        kupka2.push(los_karta1)
+        kupka2.push(los_karta2)
     } else if (los_karta1 % 13 + 1 > los_karta2 % 13 + 1) {
         mySprite.setPosition(18, 60)
         mySprite.setImage(img`
@@ -51,6 +55,8 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             . . . . . e e e e e e . . . . . 
             . . . . . . . . . . . . . . . . 
             `)
+        kupka1.push(los_karta1)
+        kupka1.push(los_karta2)
     } else {
         mySprite.setPosition(80, 60)
         mySprite.setImage(img`
@@ -71,11 +77,49 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             . . 2 2 4 4 4 4 4 4 4 4 2 2 . . 
             . . . 2 2 4 4 4 4 4 2 2 2 . . . 
             `)
+        kupka1.push(los_karta1)
+        kupka2.push(los_karta2)
     }
+    if (kupka1.length == 0) {
+        game.over(false)
+    } else if (kupka2.length == 0) {
+        game.over(true)
+    }
+    pause(1000)
 })
+function doLosowanie () {
+    for (let index = 0; index <= 51; index++) {
+        jest_taki = 1
+        while (jest_taki == 1) {
+            jest_taki = 0
+            losuj = randint(0, 51)
+            for (let value of kupka1) {
+                if (value == losuj) {
+                    jest_taki = 1
+                }
+            }
+            for (let value of kupka2) {
+                if (value == losuj) {
+                    jest_taki = 1
+                }
+            }
+        }
+        if (jest_taki == 0) {
+            if (index % 2 == 0) {
+                kupka1.push(losuj)
+            } else {
+                kupka2.push(losuj)
+            }
+        }
+    }
+}
+let losuj = 0
+let jest_taki = 0
 let los_karta2 = 0
 let los_karta1 = 0
 let nextCard: Card = null
+let kupka2: number[] = []
+let kupka1: number[] = []
 let lista_kart_obrazy: Image[] = []
 let karta2: Sprite = null
 let karta1: Sprite = null
@@ -171,7 +215,12 @@ karta2 = sprites.create(img`
 karta2.setPosition(141, 18)
 karta1.say("Press A for next card")
 lista_kart_obrazy = []
+kupka1 = []
+kupka2 = []
+let reka1: number[] = []
+let reka2: number[] = []
 for (let index = 0; index < 52; index++) {
     nextCard = myShoe.nextCard
     lista_kart_obrazy.push(myShoe.getCardImage(nextCard, CardSpriteSize.ThirtyTwoByThirtyTwo))
 }
+doLosowanie()
