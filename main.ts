@@ -4,15 +4,28 @@ enum SpriteKindLegacy {
     Food,
     Enemy
 }
+namespace SpriteKind {
+    export const player1 = SpriteKind.create()
+}
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     los_karta1 = kupka1.shift()
+    reka1.push(los_karta1)
     karta1.say(los_karta1 % 13 + 1)
     karta1.say(kupka1.length)
     los_karta2 = kupka2.shift()
-    karta2.say(los_karta2 % 13 + 1)
+    reka2.push(los_karta2)
     karta2.say(kupka2.length)
+    karta2.say(los_karta2 % 13 + 1)
     karta1.setImage(lista_kart_obrazy[los_karta1])
     karta2.setImage(lista_kart_obrazy[los_karta2])
+    doMove()
+    pause(1000)
+})
+function doMove () {
+    los_karta1 = reka1[reka1.length - 1]
+    los_karta2 = reka2[reka2.length - 1]
+    karta1.say(los_karta1 % 13 + 1)
+    karta2.say(los_karta2 % 13 + 1)
     if (los_karta1 % 13 + 1 < los_karta2 % 13 + 1) {
         mySprite.setPosition(141, 60)
         mySprite.setImage(img`
@@ -33,8 +46,14 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             . . . . . e e e e e e . . . . . 
             . . . . . . . . . . . . . . . . 
             `)
-        kupka2.push(los_karta1)
-        kupka2.push(los_karta2)
+        dlugreka = reka1.length - 1
+        for (let index = 0; index <= dlugreka; index++) {
+            kupka2.push(reka1.removeAt(0))
+        }
+        dlugreka = reka2.length - 1
+        for (let index = 0; index <= dlugreka; index++) {
+            kupka2.push(reka2.removeAt(0))
+        }
     } else if (los_karta1 % 13 + 1 > los_karta2 % 13 + 1) {
         mySprite.setPosition(18, 60)
         mySprite.setImage(img`
@@ -55,8 +74,14 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             . . . . . e e e e e e . . . . . 
             . . . . . . . . . . . . . . . . 
             `)
-        kupka1.push(los_karta1)
-        kupka1.push(los_karta2)
+        dlugreka = reka1.length - 1
+        for (let index = 0; index <= dlugreka; index++) {
+            kupka1.push(reka1.removeAt(0))
+        }
+        dlugreka = reka2.length - 1
+        for (let index = 0; index <= dlugreka; index++) {
+            kupka1.push(reka2.removeAt(0))
+        }
     } else {
         mySprite.setPosition(80, 60)
         mySprite.setImage(img`
@@ -77,16 +102,30 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
             . . 2 2 4 4 4 4 4 4 4 4 2 2 . . 
             . . . 2 2 4 4 4 4 4 2 2 2 . . . 
             `)
-        kupka1.push(los_karta1)
-        kupka2.push(los_karta2)
+        doWojna()
     }
     if (kupka1.length == 0) {
         game.over(false)
     } else if (kupka2.length == 0) {
         game.over(true)
     }
-    pause(1000)
-})
+}
+function doWojna () {
+    if (kupka1.length >= 2) {
+        reka1.push(kupka1.shift())
+        reka1.push(kupka1.shift())
+    } else {
+        game.over(false)
+    }
+    if (kupka2.length >= 2) {
+        reka2.push(kupka2.shift())
+        reka2.push(kupka2.shift())
+    } else {
+        game.over(true)
+    }
+    doDisplay(1)
+    doMove()
+}
 function doLosowanie () {
     for (let index = 0; index <= 51; index++) {
         jest_taki = 1
@@ -113,11 +152,56 @@ function doLosowanie () {
         }
     }
 }
+function doDisplay (gracz: number) {
+    dlugreka = reka1.length - 1
+    for (let index = 0; index <= dlugreka; index++) {
+        karta1 = sprites.create(img`
+            ...........ccccc66666...........
+            ........ccc4444444444666........
+            ......cc444444444bb4444466......
+            .....cb4444bb4444b5b444444b.....
+            ....eb4444b5b44444b44444444b....
+            ...ebb44444b4444444444b444446...
+            ..eb6bb444444444bb444b5b444446..
+            ..e6bb5b44444444b5b444b44bb44e..
+            .e66b4b4444444444b4444444b5b44e.
+            .e6bb444444444444444444444bb44e.
+            eb66b44444bb444444444444444444be
+            eb66bb444b5b44444444bb44444444be
+            fb666b444bb444444444b5b4444444bf
+            fcb666b44444444444444bb444444bcf
+            .fbb6666b44444444444444444444bf.
+            .efbb66666bb4444444444444444bfe.
+            .86fcbb66666bbb44444444444bcc688
+            8772effcbbbbbbbbbbbbbbbbcfc22778
+            87722222cccccccccccccccc22226678
+            f866622222222222222222222276686f
+            fef866677766667777776667777fffef
+            fbff877768f86777777666776fffffbf
+            fbeffeefffeff7766688effeeeefeb6f
+            f6bfffeffeeeeeeeeeeeeefeeeeebb6e
+            f66ddfffffeeeffeffeeeeeffeedb46e
+            .c66ddd4effffffeeeeeffff4ddb46e.
+            .fc6b4dddddddddddddddddddb444ee.
+            ..ff6bb444444444444444444444ee..
+            ....ffbbbb4444444444444444ee....
+            ......ffebbbbbb44444444eee......
+            .........fffffffcccccee.........
+            ................................
+            `, SpriteKind.player1)
+        karta1.setPosition(18, 18 + index * 10)
+        karta1.setImage(lista_kart_obrazy[reka1[0]])
+        karta1.z = index
+    }
+}
 let losuj = 0
 let jest_taki = 0
+let dlugreka = 0
 let los_karta2 = 0
 let los_karta1 = 0
 let nextCard: Card = null
+let reka2: number[] = []
+let reka1: number[] = []
 let kupka2: number[] = []
 let kupka1: number[] = []
 let lista_kart_obrazy: Image[] = []
@@ -217,8 +301,8 @@ karta1.say("Press A for next card")
 lista_kart_obrazy = []
 kupka1 = []
 kupka2 = []
-let reka1: number[] = []
-let reka2: number[] = []
+reka1 = []
+reka2 = []
 for (let index = 0; index < 52; index++) {
     nextCard = myShoe.nextCard
     lista_kart_obrazy.push(myShoe.getCardImage(nextCard, CardSpriteSize.ThirtyTwoByThirtyTwo))
