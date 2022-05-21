@@ -9,6 +9,7 @@ namespace SpriteKind {
     export const player2 = SpriteKind.create()
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    mySprite.say("Na kupkach:")
     los_karta1 = kupka1.shift()
     reka1.push(los_karta1)
     status1.say(kupka1.length)
@@ -41,6 +42,24 @@ function doCzysc () {
         f f f f f f f f f f f f f f f f 
         `)
     status2.setImage(img`
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        `)
+    status3.setImage(img`
         f f f f f f f f f f f f f f f f 
         f f f f f f f f f f f f f f f f 
         f f f f f f f f f f f f f f f f 
@@ -135,8 +154,8 @@ function doMove () {
             kupka1.push(reka2.removeAt(0))
         }
     } else {
-        mySprite.setPosition(80, 100)
-        mySprite.setImage(img`
+        status3.setPosition(80, 100)
+        status3.setImage(img`
             . . . . 2 2 2 2 2 2 2 2 . . . . 
             . . . 2 4 4 4 5 5 4 4 4 2 2 2 . 
             . 2 2 5 5 d 4 5 5 5 4 4 4 4 2 . 
@@ -156,7 +175,36 @@ function doMove () {
             `)
         music.bigCrash.play()
         pause(2000)
-        doWojna()
+        if (game.ask("Czy walczysz?")) {
+            doWojna()
+        } else {
+            status1.setImage(img`
+                f f f f f f f f f f f f f f f f 
+                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+                f f f 5 5 5 5 5 5 5 5 5 5 f f f 
+                f f f f 5 5 5 5 5 5 5 5 f f f f 
+                f f f f f f f e e f f f f f f f 
+                f f f f f f f e e f f f f f f f 
+                f f f f f f f e e f f f f f f f 
+                f f f f f f e e e e f f f f f f 
+                f f f f f e e e e e e f f f f f 
+                f f f f f f f f f f f f f f f f 
+                `)
+            dlugreka = reka1.length - 1
+            for (let index = 0; index <= dlugreka; index++) {
+                kupka1.push(reka1.removeAt(0))
+            }
+            dlugreka = reka2.length - 1
+            for (let index = 0; index <= dlugreka; index++) {
+                kupka1.push(reka2.removeAt(0))
+            }
+        }
     }
     if (kupka1.length == 0) {
         game.over(false)
@@ -373,10 +421,12 @@ let kupka2: number[] = []
 let kupka1: number[] = []
 let lista_kart_obrazy: Image[] = []
 let karta2: Sprite = null
+let status3: Sprite = null
 let status2: Sprite = null
 let status1: Sprite = null
 let karta1: Sprite = null
 let mySprite: Sprite = null
+game.splash("Gra w karty - Wojna...", "Możesz się poddać jak nie chcesz ryzykować i tracisz wtedy tylko jedną kartę...")
 mySprite = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -466,9 +516,28 @@ status2 = sprites.create(img`
     e e e 2 e e c e c c c . . . . . 
     . c c c c c c c . . . . . . . . 
     `, SpriteKind.Player)
+status3 = sprites.create(img`
+    . . . . . 3 3 b 3 3 d d 3 3 . . 
+    . . . . 3 1 1 d 3 d 1 1 1 1 3 . 
+    . . . 3 d 1 1 1 d 1 1 1 d 3 1 3 
+    . . 3 d d 1 1 1 d d 1 1 1 3 3 3 
+    . 3 1 1 d 1 1 1 1 d d 1 1 b . . 
+    . 3 1 1 1 d 1 1 1 1 1 d 1 1 3 . 
+    . b d 1 1 1 d 1 1 1 1 1 1 1 3 . 
+    . 4 b 1 1 1 1 d d 1 1 1 1 d 3 . 
+    . 4 4 d 1 1 1 1 1 1 d d d b b . 
+    . 4 d b d 1 1 1 1 1 1 1 1 3 . . 
+    4 d d 5 b d 1 1 1 1 1 1 1 3 . . 
+    4 5 d 5 5 b b d 1 1 1 1 d 3 . . 
+    4 5 5 d 5 5 d b b b d d 3 . . . 
+    4 5 5 5 d d d d 4 4 b 3 . . . . 
+    . 4 5 5 5 4 4 4 . . . . . . . . 
+    . . 4 4 4 . . . . . . . . . . . 
+    `, SpriteKind.Player)
 karta1.setPosition(18, 18)
 status1.setPosition(50, 100)
 status2.setPosition(114, 100)
+status3.setPosition(80, 100)
 karta2 = sprites.create(img`
     ...........222222ee.............
     .........2233333bbeee...........
@@ -504,7 +573,8 @@ karta2 = sprites.create(img`
     ................................
     `, SpriteKindLegacy.Player)
 karta2.setPosition(141, 18)
-karta1.say("Press A for next card", 2000)
+mySprite.setPosition(80, 70)
+mySprite.say("A - kolejny ruch")
 lista_kart_obrazy = []
 kupka1 = []
 kupka2 = []
