@@ -6,45 +6,98 @@ enum SpriteKindLegacy {
 }
 namespace SpriteKind {
     export const player1 = SpriteKind.create()
+    export const player2 = SpriteKind.create()
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     los_karta1 = kupka1.shift()
     reka1.push(los_karta1)
-    karta1.say(los_karta1 % 13 + 1)
-    karta1.say(kupka1.length)
+    status1.say(kupka1.length)
     los_karta2 = kupka2.shift()
     reka2.push(los_karta2)
-    karta2.say(kupka2.length)
-    karta2.say(los_karta2 % 13 + 1)
-    karta1.setImage(lista_kart_obrazy[los_karta1])
+    status2.say(kupka2.length)
     karta2.setImage(lista_kart_obrazy[los_karta2])
+    doDisplay(1)
     doMove()
-    pause(1000)
 })
+function doCzysc () {
+    sprites.destroyAllSpritesOfKind(SpriteKind.player1)
+    sprites.destroyAllSpritesOfKind(SpriteKind.player2)
+    status1.setImage(img`
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        `)
+    status2.setImage(img`
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        `)
+    mySprite.setImage(img`
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        f f f f f f f f f f f f f f f f 
+        `)
+}
 function doMove () {
     los_karta1 = reka1[reka1.length - 1]
     los_karta2 = reka2[reka2.length - 1]
-    karta1.say(los_karta1 % 13 + 1)
-    karta2.say(los_karta2 % 13 + 1)
     if (los_karta1 % 13 + 1 < los_karta2 % 13 + 1) {
-        mySprite.setPosition(141, 60)
-        mySprite.setImage(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-            . . 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-            . . 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-            . . 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-            . . 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-            . . 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-            . . . 5 5 5 5 5 5 5 5 5 5 . . . 
-            . . . . 5 5 5 5 5 5 5 5 . . . . 
-            . . . . . . . e e . . . . . . . 
-            . . . . . . . e e . . . . . . . 
-            . . . . . . . e e . . . . . . . 
-            . . . . . . e e e e . . . . . . 
-            . . . . . e e e e e e . . . . . 
-            . . . . . . . . . . . . . . . . 
+        status2.setImage(img`
+            f f f f f f f f f f f f f f f f 
+            f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+            f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+            f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+            f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+            f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+            f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+            f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+            f f f 5 5 5 5 5 5 5 5 5 5 f f f 
+            f f f f 5 5 5 5 5 5 5 5 f f f f 
+            f f f f f f f e e f f f f f f f 
+            f f f f f f f e e f f f f f f f 
+            f f f f f f f e e f f f f f f f 
+            f f f f f f e e e e f f f f f f 
+            f f f f f e e e e e e f f f f f 
+            f f f f f f f f f f f f f f f f 
             `)
         dlugreka = reka1.length - 1
         for (let index = 0; index <= dlugreka; index++) {
@@ -55,24 +108,23 @@ function doMove () {
             kupka2.push(reka2.removeAt(0))
         }
     } else if (los_karta1 % 13 + 1 > los_karta2 % 13 + 1) {
-        mySprite.setPosition(18, 60)
-        mySprite.setImage(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-            . . 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-            . . 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-            . . 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-            . . 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-            . . 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-            . . . 5 5 5 5 5 5 5 5 5 5 . . . 
-            . . . . 5 5 5 5 5 5 5 5 . . . . 
-            . . . . . . . e e . . . . . . . 
-            . . . . . . . e e . . . . . . . 
-            . . . . . . . e e . . . . . . . 
-            . . . . . . e e e e . . . . . . 
-            . . . . . e e e e e e . . . . . 
-            . . . . . . . . . . . . . . . . 
+        status1.setImage(img`
+            f f f f f f f f f f f f f f f f 
+            f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+            f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+            f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+            f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+            f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+            f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+            f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+            f f f 5 5 5 5 5 5 5 5 5 5 f f f 
+            f f f f 5 5 5 5 5 5 5 5 f f f f 
+            f f f f f f f e e f f f f f f f 
+            f f f f f f f e e f f f f f f f 
+            f f f f f f f e e f f f f f f f 
+            f f f f f f e e e e f f f f f f 
+            f f f f f e e e e e e f f f f f 
+            f f f f f f f f f f f f f f f f 
             `)
         dlugreka = reka1.length - 1
         for (let index = 0; index <= dlugreka; index++) {
@@ -83,7 +135,7 @@ function doMove () {
             kupka1.push(reka2.removeAt(0))
         }
     } else {
-        mySprite.setPosition(80, 60)
+        mySprite.setPosition(80, 100)
         mySprite.setImage(img`
             . . . . 2 2 2 2 2 2 2 2 . . . . 
             . . . 2 4 4 4 5 5 4 4 4 2 2 2 . 
@@ -102,6 +154,8 @@ function doMove () {
             . . 2 2 4 4 4 4 4 4 4 4 2 2 . . 
             . . . 2 2 4 4 4 4 4 2 2 2 . . . 
             `)
+        music.bigCrash.play()
+        pause(2000)
         doWojna()
     }
     if (kupka1.length == 0) {
@@ -153,6 +207,7 @@ function doLosowanie () {
     }
 }
 function doDisplay (gracz: number) {
+    doCzysc()
     dlugreka = reka1.length - 1
     for (let index = 0; index <= dlugreka; index++) {
         karta1 = sprites.create(img`
@@ -194,41 +249,116 @@ function doDisplay (gracz: number) {
         if (index % 2 == 1) {
             karta1.setImage(img`
                 77777777777777777777777777777777
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
-                78888888888888888888888888888887
+                7ffffffffffffffffffffffffffffff7
+                7f8888888888888888888888888888f7
+                7f8888888888888888888888888888f7
+                7f8888888888888888888888888888f7
+                7f8888888555555588888888888888f7
+                7f8888885888888858888888888888f7
+                7f8888885888888858888888888888f7
+                7f8888885888888858888888888888f7
+                7f8888885888888858885555555888f7
+                7f8888885888888858858888888588f7
+                7f8888885888888858588888888858f7
+                7f8888885888888858588888888858f7
+                7f8888888555555588588888888858f7
+                7f8888888888888888588888888858f7
+                7f8888555555588888588888888858f7
+                7f8885888888858888588888888858f7
+                7f8858888888885888588888888858f7
+                7f8588888888888588858888888588f7
+                7f8588888888888588885555555888f7
+                7f8588888888888588888888888888f7
+                7f8588888888888588888888888888f7
+                7f8588888888888588888888888888f7
+                7f8588888888888588888888888888f7
+                7f8588888888888588888888888888f7
+                7f8858888888885888888888888888f7
+                7f8885888888858888888888888888f7
+                7f8888555555588888888888888888f7
+                7f8888888888888888888888888888f7
+                7f8888888888888888888888888888f7
+                7ffffffffffffffffffffffffffffff7
                 77777777777777777777777777777777
                 `)
         } else {
-            karta1.setImage(lista_kart_obrazy[reka1[0]])
+            karta1.setImage(lista_kart_obrazy[reka1[index]])
         }
+        karta1 = sprites.create(img`
+            ...........ccccc66666...........
+            ........ccc4444444444666........
+            ......cc444444444bb4444466......
+            .....cb4444bb4444b5b444444b.....
+            ....eb4444b5b44444b44444444b....
+            ...ebb44444b4444444444b444446...
+            ..eb6bb444444444bb444b5b444446..
+            ..e6bb5b44444444b5b444b44bb44e..
+            .e66b4b4444444444b4444444b5b44e.
+            .e6bb444444444444444444444bb44e.
+            eb66b44444bb444444444444444444be
+            eb66bb444b5b44444444bb44444444be
+            fb666b444bb444444444b5b4444444bf
+            fcb666b44444444444444bb444444bcf
+            .fbb6666b44444444444444444444bf.
+            .efbb66666bb4444444444444444bfe.
+            .86fcbb66666bbb44444444444bcc688
+            8772effcbbbbbbbbbbbbbbbbcfc22778
+            87722222cccccccccccccccc22226678
+            f866622222222222222222222276686f
+            fef866677766667777776667777fffef
+            fbff877768f86777777666776fffffbf
+            fbeffeefffeff7766688effeeeefeb6f
+            f6bfffeffeeeeeeeeeeeeefeeeeebb6e
+            f66ddfffffeeeffeffeeeeeffeedb46e
+            .c66ddd4effffffeeeeeffff4ddb46e.
+            .fc6b4dddddddddddddddddddb444ee.
+            ..ff6bb444444444444444444444ee..
+            ....ffbbbb4444444444444444ee....
+            ......ffebbbbbb44444444eee......
+            .........fffffffcccccee.........
+            ................................
+            `, SpriteKind.player2)
+        karta1.setPosition(141, 18 + index * 10)
+        karta1.z = index
+        if (index % 2 == 1) {
+            karta1.setImage(img`
+                77777777777777777777777777777777
+                7ffffffffffffffffffffffffffffff7
+                7f8888888888888888888888888888f7
+                7f8888888888888888888888888888f7
+                7f8888888888888888888888888888f7
+                7f8888888555555588888888888888f7
+                7f8888885888888858888888888888f7
+                7f8888885888888858888888888888f7
+                7f8888885888888858888888888888f7
+                7f8888885888888858885555555888f7
+                7f8888885888888858858888888588f7
+                7f8888885888888858588888888858f7
+                7f8888885888888858588888888858f7
+                7f8888888555555588588888888858f7
+                7f8888888888888888588888888858f7
+                7f8888555555588888588888888858f7
+                7f8885888888858888588888888858f7
+                7f8858888888885888588888888858f7
+                7f8588888888888588858888888588f7
+                7f8588888888888588885555555888f7
+                7f8588888888888588888888888888f7
+                7f8588888888888588888888888888f7
+                7f8588888888888588888888888888f7
+                7f8588888888888588888888888888f7
+                7f8588888888888588888888888888f7
+                7f8858888888885888888888888888f7
+                7f8885888888858888888888888888f7
+                7f8888555555588888888888888888f7
+                7f8888888888888888888888888888f7
+                7f8888888888888888888888888888f7
+                7ffffffffffffffffffffffffffffff7
+                77777777777777777777777777777777
+                `)
+        } else {
+            karta1.setImage(lista_kart_obrazy[reka2[index]])
+        }
+        pause(1000)
     }
 }
 let losuj = 0
@@ -243,6 +373,8 @@ let kupka2: number[] = []
 let kupka1: number[] = []
 let lista_kart_obrazy: Image[] = []
 let karta2: Sprite = null
+let status2: Sprite = null
+let status1: Sprite = null
 let karta1: Sprite = null
 let mySprite: Sprite = null
 mySprite = sprites.create(img`
@@ -298,7 +430,45 @@ karta1 = sprites.create(img`
     .........fffffffcccccee.........
     ................................
     `, SpriteKind.Player)
+status1 = sprites.create(img`
+    . . . . . . b b b b a a . . . . 
+    . . . . b b d d d 3 3 3 a a . . 
+    . . . b d d d 3 3 3 3 3 3 a a . 
+    . . b d d 3 3 3 3 3 3 3 3 3 a . 
+    . b 3 d 3 3 3 3 3 b 3 3 3 3 a b 
+    . b 3 3 3 3 3 a a 3 3 3 3 3 a b 
+    b 3 3 3 3 3 a a 3 3 3 3 d a 4 b 
+    b 3 3 3 3 b a 3 3 3 3 3 d a 4 b 
+    b 3 3 3 3 3 3 3 3 3 3 d a 4 4 e 
+    a 3 3 3 3 3 3 3 3 3 d a 4 4 4 e 
+    a 3 3 3 3 3 3 3 d d a 4 4 4 e . 
+    a a 3 3 3 d d d a a 4 4 4 e e . 
+    . e a a a a a a 4 4 4 4 e e . . 
+    . . e e b b 4 4 4 4 b e e . . . 
+    . . . e e e e e e e e . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Player)
+status2 = sprites.create(img`
+    . . . . . . . 6 . . . . . . . . 
+    . . . . . . 8 6 6 . . . 6 8 . . 
+    . . . e e e 8 8 6 6 . 6 7 8 . . 
+    . . e 2 2 2 2 e 8 6 6 7 6 . . . 
+    . e 2 2 4 4 2 7 7 7 7 7 8 6 . . 
+    . e 2 4 4 2 6 7 7 7 6 7 6 8 8 . 
+    e 2 4 5 2 2 6 7 7 6 2 7 7 6 . . 
+    e 2 4 4 2 2 6 7 6 2 2 6 7 7 6 . 
+    e 2 4 2 2 2 6 6 2 2 2 e 7 7 6 . 
+    e 2 4 2 2 4 2 2 2 4 2 2 e 7 6 . 
+    e 2 4 2 2 2 2 2 2 2 2 2 e c 6 . 
+    e 2 2 2 2 2 2 2 4 e 2 e e c . . 
+    e e 2 e 2 2 4 2 2 e e e c . . . 
+    e e e e 2 e 2 2 e e e c . . . . 
+    e e e 2 e e c e c c c . . . . . 
+    . c c c c c c c . . . . . . . . 
+    `, SpriteKind.Player)
 karta1.setPosition(18, 18)
+status1.setPosition(50, 100)
+status2.setPosition(114, 100)
 karta2 = sprites.create(img`
     ...........222222ee.............
     .........2233333bbeee...........
@@ -334,7 +504,7 @@ karta2 = sprites.create(img`
     ................................
     `, SpriteKindLegacy.Player)
 karta2.setPosition(141, 18)
-karta1.say("Press A for next card")
+karta1.say("Press A for next card", 2000)
 lista_kart_obrazy = []
 kupka1 = []
 kupka2 = []
@@ -345,3 +515,6 @@ for (let index = 0; index < 52; index++) {
     lista_kart_obrazy.push(myShoe.getCardImage(nextCard, CardSpriteSize.ThirtyTwoByThirtyTwo))
 }
 doLosowanie()
+game.onUpdateInterval(1000, function () {
+	
+})
