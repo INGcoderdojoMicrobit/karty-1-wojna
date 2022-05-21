@@ -156,36 +156,7 @@ function doMove () {
             `)
         music.bigCrash.play()
         pause(2000)
-        if (game.ask("Czy się poddajesz?")) {
-            status1.setImage(img`
-                f f f f f f f f f f f f f f f f 
-                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
-                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
-                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
-                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
-                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
-                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
-                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
-                f f f 5 5 5 5 5 5 5 5 5 5 f f f 
-                f f f f 5 5 5 5 5 5 5 5 f f f f 
-                f f f f f f f e e f f f f f f f 
-                f f f f f f f e e f f f f f f f 
-                f f f f f f f e e f f f f f f f 
-                f f f f f f e e e e f f f f f f 
-                f f f f f e e e e e e f f f f f 
-                f f f f f f f f f f f f f f f f 
-                `)
-            dlugreka = reka1.length - 1
-            for (let index = 0; index <= dlugreka; index++) {
-                kupka1.push(reka1.removeAt(0))
-            }
-            dlugreka = reka2.length - 1
-            for (let index = 0; index <= dlugreka; index++) {
-                kupka1.push(reka2.removeAt(0))
-            }
-        } else {
-            doWojna()
-        }
+        doWojna()
     }
     if (kupka1.length == 0) {
         game.over(false)
@@ -460,22 +431,22 @@ karta1 = sprites.create(img`
     ................................
     `, SpriteKind.Player)
 status1 = sprites.create(img`
-    . . . . . . b b b b a a . . . . 
-    . . . . b b d d d 3 3 3 a a . . 
-    . . . b d d d 3 3 3 3 3 3 a a . 
-    . . b d d 3 3 3 3 3 3 3 3 3 a . 
-    . b 3 d 3 3 3 3 3 b 3 3 3 3 a b 
-    . b 3 3 3 3 3 a a 3 3 3 3 3 a b 
-    b 3 3 3 3 3 a a 3 3 3 3 d a 4 b 
-    b 3 3 3 3 b a 3 3 3 3 3 d a 4 b 
-    b 3 3 3 3 3 3 3 3 3 3 d a 4 4 e 
-    a 3 3 3 3 3 3 3 3 3 d a 4 4 4 e 
-    a 3 3 3 3 3 3 3 d d a 4 4 4 e . 
-    a a 3 3 3 d d d a a 4 4 4 e e . 
-    . e a a a a a a 4 4 4 4 e e . . 
-    . . e e b b 4 4 4 4 b e e . . . 
-    . . . e e e e e e e e . . . . . 
-    . . . . . . . . . . . . . . . . 
+    . . . . . . . e e e e . . . . . 
+    . . . . . e e 4 5 5 5 e e . . . 
+    . . . . e 4 5 6 2 2 7 6 6 e . . 
+    . . . e 5 6 6 7 2 2 6 4 4 4 e . 
+    . . e 5 2 2 7 6 6 4 5 5 5 5 4 . 
+    . e 5 6 2 2 8 8 5 5 5 5 5 4 5 4 
+    . e 5 6 7 7 8 5 4 5 4 5 5 5 5 4 
+    e 4 5 8 6 6 5 5 5 5 5 5 4 5 5 4 
+    e 5 c e 8 5 5 5 4 5 5 5 5 5 5 4 
+    e 5 c c e 5 4 5 5 5 4 5 5 5 e . 
+    e 5 c c 5 5 5 5 5 5 5 5 4 e . . 
+    e 5 e c 5 4 5 4 5 5 5 e e . . . 
+    e 5 e e 5 5 5 5 5 4 e . . . . . 
+    4 5 4 e 5 5 5 5 e e . . . . . . 
+    . 4 5 4 5 5 4 e . . . . . . . . 
+    . . 4 4 e e e . . . . . . . . . 
     `, SpriteKind.Player)
 status2 = sprites.create(img`
     . . . . . . . 6 . . . . . . . . 

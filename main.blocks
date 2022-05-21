@@ -49,22 +49,22 @@ f66ddfffffeeeffeffeeeeeffeedb46e
 .........fffffffcccccee.........
 ................................
 `</field><data>{"commentRefs":[],"fieldData":{"img":"nmvN%j8mM=P{}E|:v7[P"}}</data></shadow></value><value name="kind"><shadow type="spritekind" id="]r#/_5?b9NLO7Gb9`U!;"><field name="MEMBER">Player</field></shadow></value></block></value><next><block type="variables_set" id="[;KaSR*[hn|=]wLa4gR1"><field name="VAR" id="gz[d^9UT!~T06kwXkSQy">status1</field><value name="VALUE"><shadow type="math_number"><field name="NUM">0</field></shadow><block type="spritescreate" id="h|a~wdlSd*JNr5Mp]n#*"><value name="img"><shadow type="screen_image_picker" id="*:p*3w0cy}DZJ*2-ZcGd"><field name="img">img`
-. . . . . . b b b b a a . . . . 
-. . . . b b d d d 3 3 3 a a . . 
-. . . b d d d 3 3 3 3 3 3 a a . 
-. . b d d 3 3 3 3 3 3 3 3 3 a . 
-. b 3 d 3 3 3 3 3 b 3 3 3 3 a b 
-. b 3 3 3 3 3 a a 3 3 3 3 3 a b 
-b 3 3 3 3 3 a a 3 3 3 3 d a 4 b 
-b 3 3 3 3 b a 3 3 3 3 3 d a 4 b 
-b 3 3 3 3 3 3 3 3 3 3 d a 4 4 e 
-a 3 3 3 3 3 3 3 3 3 d a 4 4 4 e 
-a 3 3 3 3 3 3 3 d d a 4 4 4 e . 
-a a 3 3 3 d d d a a 4 4 4 e e . 
-. e a a a a a a 4 4 4 4 e e . . 
-. . e e b b 4 4 4 4 b e e . . . 
-. . . e e e e e e e e . . . . . 
-. . . . . . . . . . . . . . . . 
+. . . . . . . e e e e . . . . . 
+. . . . . e e 4 5 5 5 e e . . . 
+. . . . e 4 5 6 2 2 7 6 6 e . . 
+. . . e 5 6 6 7 2 2 6 4 4 4 e . 
+. . e 5 2 2 7 6 6 4 5 5 5 5 4 . 
+. e 5 6 2 2 8 8 5 5 5 5 5 4 5 4 
+. e 5 6 7 7 8 5 4 5 4 5 5 5 5 4 
+e 4 5 8 6 6 5 5 5 5 5 5 4 5 5 4 
+e 5 c e 8 5 5 5 4 5 5 5 5 5 5 4 
+e 5 c c e 5 4 5 5 5 4 5 5 5 e . 
+e 5 c c 5 5 5 5 5 5 5 5 4 e . . 
+e 5 e c 5 4 5 4 5 5 5 e e . . . 
+e 5 e e 5 5 5 5 5 4 e . . . . . 
+4 5 4 e 5 5 5 5 e e . . . . . . 
+. 4 5 4 5 5 4 e . . . . . . . . 
+. . 4 4 e e e . . . . . . . . . 
 `</field><data>{"commentRefs":[],"fieldData":{"img":"*:p*3w0cy}DZJ*2-ZcGd"}}</data></shadow></value><value name="kind"><shadow type="spritekind" id="Kb)W`N%xCF)AM)%p/9pe"><field name="MEMBER">Player</field></shadow></value></block></value><next><block type="variables_set" id="mv+(ML`N~H6!yn9f_taH"><field name="VAR" id="=fZd$M:L+KaUH3hor.$H">status2</field><value name="VALUE"><shadow type="math_number"><field name="NUM">0</field></shadow><block type="spritescreate" id="E*$P/{EOxDJS_#A^n.X4"><value name="img"><shadow type="screen_image_picker" id="6T{/{oPsQ*JAii)g-[^7"><field name="img">img`
 . . . . . . . 6 . . . . . . . . 
 . . . . . . 8 6 6 . . . 6 8 . . 
