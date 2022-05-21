@@ -156,7 +156,36 @@ function doMove () {
             `)
         music.bigCrash.play()
         pause(2000)
-        doWojna()
+        if (game.ask("Czy się poddajesz?")) {
+            status1.setImage(img`
+                f f f f f f f f f f f f f f f f 
+                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+                f f 5 5 5 5 5 5 5 5 5 5 5 5 f f 
+                f f f 5 5 5 5 5 5 5 5 5 5 f f f 
+                f f f f 5 5 5 5 5 5 5 5 f f f f 
+                f f f f f f f e e f f f f f f f 
+                f f f f f f f e e f f f f f f f 
+                f f f f f f f e e f f f f f f f 
+                f f f f f f e e e e f f f f f f 
+                f f f f f e e e e e e f f f f f 
+                f f f f f f f f f f f f f f f f 
+                `)
+            dlugreka = reka1.length - 1
+            for (let index = 0; index <= dlugreka; index++) {
+                kupka1.push(reka1.removeAt(0))
+            }
+            dlugreka = reka2.length - 1
+            for (let index = 0; index <= dlugreka; index++) {
+                kupka1.push(reka2.removeAt(0))
+            }
+        } else {
+            doWojna()
+        }
     }
     if (kupka1.length == 0) {
         game.over(false)
